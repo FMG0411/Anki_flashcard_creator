@@ -1,0 +1,138 @@
+/* Firefox popups have no fixed size by default, one is pinned so layout doesn't jump as content changes */
+:root {
+    --color-bg: #1c1c1e;
+    --color-surface: #2a2a2d;
+    --color-border: #3d3d40;
+    --color-text: #f2f2f2;
+    --color-text-muted: #9a9a9d;
+    --color-accent: #5b8def;
+    --color-accent-hover: #4a7bd9;
+    --color-error: #dd1811;
+    --color-success: #17b04a;
+    --radius: 6px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    width: 320px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+.app {padding: 14px; display: flex; flex-direction: column; gap: 10px;}
+
+.app__title {margin: 0 0 2px; font-size: 15px; font-weight: 600;}
+
+.mode-toggle {
+    display: flex;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    padding: 2px;
+    gap: 2px;
+}
+
+.mode-toggle__btn {
+    flex: 1;
+    padding: 6px 0;
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.mode-toggle__btn--active {background: var(--color-accent); color: #fff;}
+
+.panel {display: flex; flex-direction: column; gap: 10px;}
+
+.panel--hidden {display: none;}
+
+.field {display: flex; flex-direction: column; gap: 4px;}
+
+.field__label {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.field__input {
+    width: 100%;
+    padding: 7px 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.field__input:focus {outline: 2px solid var(--color-accent);outline-offset: -1px;}
+
+select.field__input {appearance: none;cursor: pointer;}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn--primary {background: var(--color-accent);color: #fff;}
+
+.btn--primary:hover {background: var(--color-accent-hover);}
+
+.btn--secondary {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.btn:disabled {opacity: 0.5; cursor: not-allowed;}
+
+.ai-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 8px;
+}
+
+.ai-preview--hidden {display: none;}
+
+.ai-preview__input {background: var(--color-bg);}
+
+.status {min-height: 14px; margin: 0; font-size: 12px;}
+
+.status--error {color: var(--color-error);}
+
+.status--success {color: var(--color-success);}
+
+.capture-preview {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+    margin-top: 8px;
+}
+
+.api-key-actions {display: flex; gap: 8px;}
+
+.api-key-note {font-size: 11px; opacity: 0.7;}
+
+.api-key-status--success { color: var(--color-success);}
+
+.api-key-status--error { color: var(--color-error);}

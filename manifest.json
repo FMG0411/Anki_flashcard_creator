@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "Anki Flashcard Creator",
+    "version": "1.0.0",
+    "description": "Create Anki flashcards from web pages using manual input or AI generation.",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "@anki-flashcard-creator",
+            "strict_min_version": "115.0"
+        }
+    },
+    "icons": {
+        "16": "icons/icon-16.png",
+        "32": "icons/icon-32.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
+    },
+    "permissions": [
+        "storage",
+        "clipboardRead",
+        "alarms"
+    ],
+    "host_permissions": [
+        "http://127.0.0.1:8765/*",
+        "http://localhost:8765/*",
+        "https://generativelanguage.googleapis.com/*"
+    ],
+    "background": {
+        "scripts": ["background/background.js"],
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content/selection_listener.js"],
+            "run_at": "document_end"
+        }
+    ],
+    "action": {
+        "default_title": "Anki Flashcard Creator",
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "16": "icons/icon-16.png",
+            "32": "icons/icon-32.png"
+        }
+    }
+}

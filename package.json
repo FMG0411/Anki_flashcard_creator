@@ -1,0 +1,40 @@
+{
+    "name": "anki-flashcard-creator",
+    "version": "1.0.0",
+    "description": "Firefox extension for creating Anki flashcards from selected web text.",
+    "type": "module",
+    "scripts": {
+        "build": "node build.js",
+        "build:win": "powershell -ExecutionPolicy Bypass -File build.ps1",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "run": "web-ext run --source-dir dist",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts",
+        "clean": "node -e \"import('fs').then(fs => fs.rmSync('dist', {recursive:true, force:true}))\""
+    },
+    "keywords": [
+        "firefox-extension",
+        "anki",
+        "flashcards",
+        "gemini",
+        "ai",
+        "spaced-repetition"
+    ],
+    "author": "Luis Fernando Martin Garcia",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/firefox-webext-browser": "^120.0.4",
+        "eslint": "^9.0.0",
+        "typescript": "^5.8.0",
+        "typescript-eslint": "^8.0.0",
+        "vitest": "^3.0.0",
+        "@vitest/coverage-v8": "^3.0.0",
+        "web-ext": "^10.6.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

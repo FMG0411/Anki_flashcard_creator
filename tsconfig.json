@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "lib": ["ES2022", "DOM"],
+
+        "rootDir": ".",
+        "outDir": "dist",
+
+        "strict": true,
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+
+        "types": [
+            "firefox-webext-browser",
+            "vitest/globals"
+        ]
+    },
+    "include": [
+        "popup/**/*.ts",
+        "background/**/*.ts",
+        "content/**/*.ts",
+        "tests/**/*.ts"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+}

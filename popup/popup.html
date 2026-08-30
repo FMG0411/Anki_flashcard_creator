@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anki Flashcard Creator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+<main class="app">
+
+    <h1 class="app__title">Create Flashcard</h1>
+
+    <div class="mode-toggle" role="tablist">
+        <button
+            type="button"
+            id="mode-manual-btn"
+            class="mode-toggle__btn mode-toggle__btn--active"
+            role="tab"
+            aria-selected="true"
+        >
+            Manual
+        </button>
+
+        <button
+            type="button"
+            id="mode-ai-btn"
+            class="mode-toggle__btn"
+            role="tab"
+            aria-selected="false"
+        >
+            AI
+        </button>
+    </div>
+
+    <section id="manual-panel" class="panel">
+        <label class="field">
+            <span class="field__label">Front</span>
+            <textarea
+                id="front-input"
+                class="field__input"
+                rows="3"
+            ></textarea>
+
+            <img
+                id="front-image"
+                class="capture-preview"
+                alt="Front Image"
+                hidden
+            >
+        </label>
+
+        <label class="field">
+            <span class="field__label">Back</span>
+            <textarea
+                id="back-input"
+                class="field__input"
+                rows="3"
+            ></textarea>
+
+            <img
+                id="back-image"
+                class="capture-preview"
+                alt="Back Image"
+                hidden
+            >
+        </label>
+    </section>
+
+    <section id="ai-panel" class="panel panel--hidden">
+        <label class="field">
+            <span class="field__label">Source text</span>
+            <textarea
+                id="source-input"
+                class="field__input"
+                rows="5"
+                placeholder="Select text and press 3."
+            ></textarea>
+        </label>
+
+        <button
+            type="button"
+            id="generate-btn"
+            class="btn btn--secondary"
+        >
+            Generate card
+        </button>
+
+        <div id="ai-preview" class="ai-preview ai-preview--hidden">
+
+        <label class="field">
+            <span class="field__label">Front</span>
+
+            <textarea
+                id="ai-front-input"
+                class="field__input ai-preview__input"
+                rows="3"
+            ></textarea>
+        </label>
+
+        <label class="field">
+            <span class="field__label">Back</span>
+
+            <textarea
+                id="ai-back-input"
+                class="field__input ai-preview__input"
+                rows="3"
+            ></textarea>
+        </label>
+        </div>
+    </section>
+
+    <label class="field">
+        <span class="field__label">Deck</span>
+        <select id="deck-select" class="field__input">
+            <option value="">Loading decks…</option>
+        </select>
+    </label>
+
+    <label class="field" id="model-field">
+        <span class="field__label">Note Type</span>
+        <select id="model-select" class="field__input">
+            <option value="">Loading models…</option>
+        </select>
+    </label>
+
+    <section id="api-key-panel" class="panel panel--hidden">
+        <label class="field">
+            <span class="field__label">Gemini API key</span>
+
+            <input
+                type="password"
+                id="gemini-key-input"
+                class="field__input"
+                placeholder="Enter your Gemini API key"
+                autocomplete="off"
+                spellcheck="false"
+            >
+        </label>
+
+        <div class="api-key-actions">
+            <button
+                type="button"
+                id="save-gemini-key-btn"
+                class="btn btn--secondary"
+            >
+                Save Key
+            </button>
+
+            <button
+                type="button"
+                id="delete-gemini-key-btn"
+                class="btn btn--secondary"
+                disabled
+            >
+                Delete Key
+            </button>
+        </div>
+
+        <p
+            id="gemini-key-status"
+            class="api-key-status"
+            aria-live="polite"
+        >
+            Checking Gemini key…
+        </p>
+
+        <p class="api-key-note">Your key is stored locally on this device.</p>
+    </section>
+
+    <button
+        type="button"
+        id="create-btn"
+        class="btn btn--primary"
+    >
+        Save Flashcard
+    </button>
+
+    <p
+        id="status-message"
+        class="status"
+        aria-live="polite"
+    ></p>
+
+</main>
+
+<script src="popup.js"></script>
+
+</body>
+</html>
