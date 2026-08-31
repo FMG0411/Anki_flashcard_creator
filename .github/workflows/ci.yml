@@ -9,6 +9,7 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,6 +34,14 @@ jobs:
 
       - name: Build extension
         run: npm run build
+
+      - name: Debug build output
+        run: |
+          echo "=== DIST FILES ==="
+          find dist -maxdepth 3 -type f | sort
+
+          echo "=== MANIFEST ==="
+          cat dist/manifest.json
 
       - name: Lint extension with web-ext
         run: npx web-ext lint --source-dir dist
