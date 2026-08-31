@@ -26,10 +26,10 @@ cp('popup/popup.html', path.join(DIST, 'popup/popup.html'))
 cp('popup/popup.css', path.join(DIST, 'popup/popup.css'))
 
 // Copy icons if they exist
-if (fs.existsSync('public/icons')) {
-    const icons = fs.readdirSync('public/icons')
+if (fs.existsSync('icons')) {
+    const icons = fs.readdirSync('icons')
     for (const icon of icons) {
-        cp(path.join('public/icons', icon), path.join(DIST, 'icons', icon))
+        cp(path.join('icons', icon), path.join(DIST, 'icons', icon))
     }
 }
 

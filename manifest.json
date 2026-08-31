@@ -6,7 +6,14 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "@anki-flashcard-creator",
-            "strict_min_version": "115.0"
+            "strict_min_version": "115.0",
+            "data_collection_permissions": {
+                "required": [
+                    "websiteContent",
+                    "websiteActivity",
+                    "browsingActivity"
+                ]
+}
         }
     },
     "icons": {
