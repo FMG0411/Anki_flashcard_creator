@@ -18,7 +18,7 @@
 
 body {
     margin: 0;
-    width: 320px;
+    width: 400px;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -115,11 +115,25 @@ select.field__input {appearance: none;cursor: pointer;}
 
 .ai-preview__input {background: var(--color-bg);}
 
+.ai-card__progress {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.ai-card__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ai-card__actions .btn {
+    flex: 1;
+}
+
 .status {min-height: 14px; margin: 0; font-size: 12px;}
 
 .status--error {color: var(--color-error);}
-
-.status--success {color: var(--color-success);}
 
 .capture-preview {
     display: block;

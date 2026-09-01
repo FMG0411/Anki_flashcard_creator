@@ -89,26 +89,45 @@
         </button>
 
         <div id="ai-preview" class="ai-preview ai-preview--hidden">
+            <div class="ai-card__progress" id="ai-card-progress"></div>
 
-        <label class="field">
-            <span class="field__label">Front</span>
+            <label class="field">
+                <span class="field__label">Front</span>
 
-            <textarea
-                id="ai-front-input"
-                class="field__input ai-preview__input"
-                rows="3"
-            ></textarea>
-        </label>
+                <textarea
+                    id="ai-front-input"
+                    class="field__input ai-preview__input"
+                    rows="3"
+                ></textarea>
+            </label>
 
-        <label class="field">
-            <span class="field__label">Back</span>
+            <label class="field">
+                <span class="field__label">Back</span>
 
-            <textarea
-                id="ai-back-input"
-                class="field__input ai-preview__input"
-                rows="3"
-            ></textarea>
-        </label>
+                <textarea
+                    id="ai-back-input"
+                    class="field__input ai-preview__input"
+                    rows="3"
+                ></textarea>
+            </label>
+
+            <div class="ai-card__actions">
+                <button
+                    type="button"
+                    id="ai-save-btn"
+                    class="btn btn--primary"
+                >
+                    Save &amp; Next
+                </button>
+
+                <button
+                    type="button"
+                    id="ai-skip-btn"
+                    class="btn btn--secondary"
+                >
+                    Skip
+                </button>
+            </div>
         </div>
     </section>
 
@@ -186,7 +205,7 @@
 
 </main>
 
-<script src="popup.js"></script>
+<script type="module" src="popup.js"></script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "@anki-flashcard-creator",
-            "strict_min_version": "115.0",
+            "strict_min_version": "128.0",
             "data_collection_permissions": {
                 "required": [
                     "websiteContent",
@@ -24,8 +24,7 @@
     },
     "permissions": [
         "storage",
-        "clipboardRead",
-        "alarms"
+        "clipboardRead"
     ],
     "host_permissions": [
         "http://127.0.0.1:8765/*",
@@ -40,7 +39,8 @@
         {
             "matches": ["<all_urls>"],
             "js": ["content/selection_listener.js"],
-            "run_at": "document_end"
+            "run_at": "document_end",
+            "all_frames": true
         }
     ],
     "action": {

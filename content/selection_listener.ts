@@ -1,30 +1,29 @@
 /* ============================================================================
- * WAS SIE MACHT:
- * - Wartet auf Tastendrücke (1 =Front, 2 = Back, 3 = AI source text)
- * - Wenn der Nutzer Text markiert hat und 1/2/3 drückt, wird der
- *   markierte Text an den Background geschickt.
- * - Wenn KEIN Text markiert ist und der Nutzer 1 oder 2 drückt,
- *   wird versucht, ein Bild aus der Zwischenablage zu lesen
+ * WHAT THIS FILE DOES:
+ * - Listens for key presses on web pages (1 = front, 2 = back, 3 = AI source
+ *   text).
+ * - If the user has selected text and presses 1/2/3, the selected text is
+ *   sent to the background script.
+ * - If NO text is selected and the user presses 1 or 2, it tries to read an
+ *   image from the clipboard.
  * ============================================================================ */
 
-// Hilfsfunktion: Gibt den aktuell markierten Text auf der Webseite zurück.
+// Type-only reference: `import()` types are erased at compile time, so this file
+// stays a classic script. Content scripts are NOT ES modules - a real `import`
+// or `export` statement would make Firefox throw a SyntaxError and the whole
+// listener would never be registered.
+type Message = import("../background/types.js").Message;
+
+// Returns the currently selected text on the web page.
 function selectedText(): string {
     return (window.getSelection() ?.toString().trim() ?? "");
 }
 
 
-/**
- * Prüft, ob der Nutzer gerade in einem Eingabefeld tippt.
- * Wenn ja, wollen wir unsere Tastenkürzel NICHT auslösen, 
- * sonst könnte der Nutzer keine "1", "2" oder "3" in Formulare eingeben
- *
- * @param target – Das Element, das das Event ausgelöst hat.
- * @returns      – true, wenn der Nutzer in einem Input, Textarea
- *                 oder contentEditable-Element tippt.
- */
+// Checks whether the user is currently typing in an input field.
 function isTyping(target: EventTarget | null): boolean {
 
-    // Wenn target kein HTMLElement ist dann auf jeden Fall false  
+    // If target is not an HTMLElement, return false in any case.  
     if (!(target instanceof HTMLElement)) {
         return false;
     }
@@ -32,11 +31,12 @@ function isTyping(target: EventTarget | null): boolean {
     return (
         target.tagName === "INPUT" ||
         target.tagName === "TEXTAREA" ||
+        target.tagName === "SELECT" ||
         target.isContentEditable
     );
 }
 
-// Liest ein Bild aus der Zwischenablage des Nutzers.
+// Reads an image from the user's clipboard.
 async function clipboardImage(): Promise<string> {
     
     const items = await navigator.clipboard.read();
@@ -48,10 +48,10 @@ async function clipboardImage(): Promise<string> {
             continue;
         }
 
-        // Bild als Binary Large Object aus dem ClipboardItem geholt.
+        // Image fetched as a binary large object (Blob) from the ClipboardItem.
         const blob = await item.getType(type);
 
-        // Binary Large Object wird in eine Data-URL verwandelt. 
+        // The binary large object is converted into a data URL. 
         return new Promise(
             (resolve, reject) => {
 
@@ -67,7 +67,7 @@ async function clipboardImage(): Promise<string> {
 
                 reader.onerror = () => reject(new Error("Could not read image."));
 
-                // FileReader verarbeitet hier das Binary Large Object.
+                // FileReader processes the binary large object here.
                 reader.readAsDataURL(blob);
             }
         );
@@ -75,18 +75,18 @@ async function clipboardImage(): Promise<string> {
     throw new Error("No image found on the clipboard.");
 }
 
-// DER HAUPT-EVENT-LISTENER für Tastendrücke
+// THE MAIN EVENT LISTENER for key presses
 document.addEventListener("keydown",async event => {
 
-        // Tippcheck
+        // Typing check
         if (event.isComposing || isTyping(event.target)) {
             return;
         }
+
         if (!["1", "2", "3"].includes(event.key)) {
             return;
         }
 
-        // Aktuell markierter Text
         const text = selectedText();
 
         if (text) {
@@ -98,12 +98,16 @@ document.addEventListener("keydown",async event => {
                         ? "SET_BACK"
                         : "SET_SOURCE";
 
-            // SET_FRONT/SET_BACK/SET_SOURCE speichern nur und deswegen wird void benutzt.        
-            void browser.runtime.sendMessage({type, text});
+            // SET_FRONT/SET_BACK/SET_SOURCE only store data. 
+            // Errors are caught here so that no unhandled rejection appears on the web page.
+            const message: Message = {type, text};
+            browser.runtime.sendMessage(message).catch(
+                (error) => console.error("Could not send selection:", error)
+            );
             return;
         }
 
-        // Versucht ein Bild zu lesen falls kein Text markiert ist
+        // Tries to read an image if no text is selected
         if (event.key !== "1" && event.key !== "2") {
             return;
         }
@@ -111,15 +115,16 @@ document.addEventListener("keydown",async event => {
         try {
             const image = await clipboardImage();
 
-            // Bild wird an background.ts geschickt
-            await browser.runtime.sendMessage({
+            // The image is sent to background.ts
+            const message: Message = {
                 type: "SET_IMAGE",
                 target:
                     event.key === "1"
                         ? "front"
                         : "back",
                 image
-            });
+            };
+            await browser.runtime.sendMessage(message);
         } catch (error) {
             console.error("Clipboard screenshot unavailable:", error);
         }
