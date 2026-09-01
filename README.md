@@ -18,8 +18,8 @@ AI-powered Firefox extension that creates Anki flashcards directly from web page
 ## Installation
 
 ```bash
-git clone https://github.com/FMG0411/anki-flashcard-creator.git
-cd anki-flashcard-creator
+git clone https://github.com/FMG0411/Anki_flashcard_creator.git
+cd Anki_flashcard_creator
 npm install
 npm run build
 npm run run   # Launches Firefox with extension loaded
