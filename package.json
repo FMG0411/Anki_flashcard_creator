@@ -24,7 +24,7 @@
         "spaced-repetition"
     ],
     "author": "Luis Fernando Martin Garcia",
-    "license": "MIT",
+    "license": "Apache 2.0",
     "devDependencies": {
         "@types/firefox-webext-browser": "^120.0.4",
         "eslint": "^9.0.0",
