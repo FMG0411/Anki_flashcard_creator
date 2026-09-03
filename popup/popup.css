@@ -18,7 +18,7 @@
 
 body {
     margin: 0;
-    width: 400px;
+    width: 380px;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -122,14 +122,9 @@ select.field__input {appearance: none;cursor: pointer;}
     text-transform: uppercase;
 }
 
-.ai-card__actions {
-    display: flex;
-    gap: 8px;
-}
+.ai-card__actions {display: flex; gap: 8px;}
 
-.ai-card__actions .btn {
-    flex: 1;
-}
+.ai-card__actions .btn {flex: 1;}
 
 .status {min-height: 14px; margin: 0; font-size: 12px;}
 

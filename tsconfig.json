@@ -21,7 +21,8 @@
 
         "types": [
             "firefox-webext-browser",
-            "vitest/globals"
+            "vitest/globals",
+            "node"
         ]
     },
     "include": [
