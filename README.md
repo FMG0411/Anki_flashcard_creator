@@ -9,6 +9,8 @@ AI-powered Firefox extension that creates Anki flashcards directly from web page
 - **Clipboard images**: Press `1`/`2` without text selection to paste a screenshot
 - **Direct Anki integration**: Creates cards instantly via AnkiConnect
 
+> **Note:** Currently, only basic Anki card types are supported.
+
 ## Prerequisites
 
 1. [Anki](https://apps.ankiweb.net/) desktop app installed and running
