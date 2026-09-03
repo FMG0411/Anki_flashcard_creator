@@ -2,6 +2,10 @@
 
 AI-powered Firefox extension that creates Anki flashcards directly from web pages using Google Gemini.
 
+## Demo
+
+![Demo of Anki Flashcard Creator](assets/demo.gif)
+
 ## Features
 
 - **Manual mode**: Select text, press `1` (front) or `2` (back)
